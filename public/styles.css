@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+body {
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  body {
+    width: 90%;
+  }
+}
+
+@media (min-width: 992px) {  
+  body {
+    width: 1280px;
+  }
+}
+
+p, div, span, label, input, button, h1, h2, h3, h4, h5, h6 {
+  font-family: "Kodchasan", sans-serif;
+  overflow-wrap: break-word;
+}
+
+p, div, span, label, input, button {
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+p, h3 {
+  margin: 5px 0;
+}
+
+.container {
+  display: grid;
+  grid-auto-rows: minmax(50px, auto);
+  column-gap: 10px;
+  row-gap: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  padding: 10px;
+  border: dashed mediumspringgreen;
+  border-radius: 10px;
+}
+
+@media (max-width: 992px) {
+  .container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {  
+  .container {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.container-full {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.container-nav {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  background-color: snow;
+  border: thick double slateblue;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.button {
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  border: thick double chocolate;
+  width: fit-content;
+  margin: 5px 0;
+  padding: 0px 5px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.button:hover {
+  background-color: lightsalmon;
+  border: thick double sienna;
+  transition: background-color 0.5s ease;
+}
