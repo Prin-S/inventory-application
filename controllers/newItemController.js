@@ -1,9 +1,12 @@
+const db = require('../db/getQueries');
 const links = require('../links');
 
-function addGame(req, res) {
+async function addGame(req, res) {
   const title = 'game';
+  const genres = await db.getAllGenresFromDB();
+  const developers = await db.getAllDevelopersFromDB();
 
-  res.render('form', { title, links });
+  res.render('form', { title, links, genres, developers });
 }
 
 function addGenre(req, res) {

@@ -52,8 +52,35 @@ async function getSingleDeveloper(req, res) {
   res.render('index', { title, links, type, developerEntries });
 }
 
+// ----------
+
 const cannotBeEmpty = 'cannot be empty.';
 const cannotBeMoreThan50 = 'cannot be more than 50 characters.';
+
+const validateGame = [
+  body('game').trim()
+    .notEmpty().withMessage(`Game title ${cannotBeEmpty}`)
+    .isLength({ max: 50 }).withMessage(`Game title ${cannotBeMoreThan50}`),
+  body('genre')
+    .notEmpty().withMessage(`Genre ${cannotBeEmpty}`),
+  body('developer')
+    .notEmpty().withMessage(`Developer ${cannotBeEmpty}`)
+];
+
+const postNewGame = [ validateGame, async (req, res) => {
+  const errors = validationResult(req);
+  const title = 'game';
+  const genres = await db.getAllGenresFromDB();
+  const developers = await db.getAllDevelopersFromDB();
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render('form', { title, links, genres, developers, errors: errors.array() });
+  }
+
+  await dbPost.insertGame(req.body.game, req.body.genre, req.body.developer);
+
+  res.redirect('/');
+}];
 
 const validateGenre = [
   body('genre').trim()
@@ -62,18 +89,17 @@ const validateGenre = [
 ];
 
 const postNewGenre = [ validateGenre, async (req, res) => {
-    const errors = validationResult(req);
-    const title = 'genre';
+  const errors = validationResult(req);
+  const title = 'genre';
 
-    if (!errors.isEmpty()) {
-      return res.status(400).render('form', { title, links, errors: errors.array() });
-    }
-
-    await dbPost.insertGenre(req.body.genre);
-
-    res.redirect('/');
+  if (!errors.isEmpty()) {
+    return res.status(400).render('form', { title, links, errors: errors.array() });
   }
-];
+
+  await dbPost.insertGenre(req.body.genre);
+
+  res.redirect('/');
+}];
 
 const validateDeveloper = [
   body('developer').trim()
@@ -82,17 +108,16 @@ const validateDeveloper = [
 ];
 
 const postNewDeveloper = [ validateDeveloper, async (req, res) => {
-    const errors = validationResult(req);
-    const title = 'developer';
+  const errors = validationResult(req);
+  const title = 'developer';
 
-    if (!errors.isEmpty()) {
-      return res.status(400).render('form', { title, links, errors: errors.array() });
-    }
-
-    await dbPost.insertDeveloper(req.body.developer);
-
-    res.redirect('/');
+  if (!errors.isEmpty()) {
+    return res.status(400).render('form', { title, links, errors: errors.array() });
   }
-];
 
-module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper, postNewGenre, postNewDeveloper };
+  await dbPost.insertDeveloper(req.body.developer);
+
+  res.redirect('/');
+}];
+
+module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper, postNewGame, postNewGenre, postNewDeveloper };
