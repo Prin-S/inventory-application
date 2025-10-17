@@ -1,7 +1,7 @@
 const pool = require('./pool');
 
 async function getAllGamesFromDB() {
-  const rows = await pool.query(`SELECT games.id, games.title, genres.genre, developers.developer
+  const rows = await pool.query(`SELECT *
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
     JOIN developers ON games.developer_id = developers.developer_id`);
@@ -19,7 +19,7 @@ async function getAllDevelopersFromDB() {
 }
 
 async function getSingleGenreFromDB(id) {
-  const rows = await pool.query(`SELECT games.id, games.title, genres.genre, developers.developer
+  const rows = await pool.query(`SELECT games.id, games.title, genres.genre, developers.developer_id, developers.developer
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
     JOIN developers ON games.developer_id = developers.developer_id
@@ -28,7 +28,7 @@ async function getSingleGenreFromDB(id) {
 }
 
 async function getSingleDeveloperFromDB(id) {
-  const rows = await pool.query(`SELECT games.id, games.title, genres.genre, developers.developer
+  const rows = await pool.query(`SELECT games.id, games.title, genres.genre_id, genres.genre, developers.developer
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
     JOIN developers ON games.developer_id = developers.developer_id

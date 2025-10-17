@@ -14,34 +14,34 @@
         <% games.forEach(game => { %>
           <div class="box">
             <h3><%= game.title %></h3>
-            <p><%= game.genre %></p>
-            <p><%= game.developer %></p>
+            <p><a href="/genre/<%= game.genre_id %>"><%= game.genre %></a></p>
+            <p><a href="/developer/<%= game.developer_id %>"><%= game.developer %></a></p>
           </div>
         <% }); %>
       <% } else if (title == 'All Genres') { %>
         <% genres.forEach(genre => { %>
           <div class="box">
-            <p><%= genre.genre %></p>
+            <p><a href="/genre/<%= genre.genre_id %>"><%= genre.genre %></a></p>
           </div>
         <% }); %>
       <% } else if (title == 'All Developers') { %>
         <% developers.forEach(developer => { %>
           <div class="box">
-            <p><%= developer.developer %></p>
+            <p><a href="/developer/<%= developer.developer_id %>"><%= developer.developer %></a></p>
           </div>
         <% }); %>
       <% } else if (type == 'Genre') { %>
         <% genreEntries.forEach(entry => { %>
           <div class="box">
             <h3><%= entry.title %></h3>
-            <p><%= entry.developer %></p>
+            <p><a href="/developer/<%= entry.developer_id %>"><%= entry.developer %></a></p>
           </div>
         <% }); %>
       <% } else if (type == 'Developer') { %>
         <% developerEntries.forEach(entry => { %>
           <div class="box">
             <h3><%= entry.title %></h3>
-            <p><%= entry.genre %></p>
+            <p><a href="/genre/<%= entry.genre_id %>"><%= entry.genre %></a></p>
           </div>
         <% }); %>
       <% } %>
