@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Add <%= title %></title>
+  </head>
+  <body>
+    <%- include('navbar', { links }) %>
+    <h1>Add a new <%= title %></h1>
+    <div class="container container-full">
+      <div class="box">
+        <% if (locals.errors) { %>
+          <% errors.forEach(error => { %>
+            <p>- <%= error.msg %></p>
+          <% }); %>
+        <% } %>
+        <% if (title == 'game') { %>
+          <form method="POST" action="/add/">
+            <p>
+              <label for="game">Game title:</label>
+              <input id="game" type="text" name="game" />
+            </p>
+            <p>
+              <label for="genre">Genre:</label>
+              <input id="genre" type="text" name="genre" />
+            </p>
+            <p>
+              <label for="developer">Developer:</label>
+              <input id="developer" type="text" name="developer" />
+            </p>
+            <p>
+              <button class="button" type="submit">Submit</button>
+            </p>
+          </form>
+        <% } else { %>
+          <form method="POST" action="/add/<%= title %>">
+            <p>
+              <label for="<%= title %>"><%= title.charAt(0).toUpperCase() + title.slice(1) %>:</label>
+              <input id="<%= title %>" type="text" name="<%= title %>" />
+            </p>
+            <p>
+              <button class="button" type="submit">Submit</button>
+            </p>
+          </form>
+        <% } %>
+      </div>
+    </div>
+    <%- include('footer') %>
+  </body>
+</html>

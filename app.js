@@ -2,7 +2,7 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const app = express();
-//const newItemRouter = require('./routes/newItemRouter');
+const newItemRouter = require('./routes/newItemRouter');
 const indexRouter = require('./routes/indexRouter');
 const links = require('./links');
 
@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // So that "A new `body` object containing the parsed data is populated on the `request` object after the middleware (i.e. `req.body`)"
 app.use(express.urlencoded({ extended: true }));
 
-//app.use('/add', newItemRouter);
+app.use('/add', newItemRouter);
 app.use('/', indexRouter);
 
 app.get('/{*splat}', (req, res) => {
