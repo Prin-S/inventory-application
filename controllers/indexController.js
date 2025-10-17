@@ -1,5 +1,7 @@
 const db = require('../db/getQueries');
+const dbPost = require('../db/postQueries');
 const links = require('../links');
+const { body, validationResult } = require('express-validator');
 
 async function getAllGames(req, res) {
   const title = 'All Games';
@@ -50,4 +52,47 @@ async function getSingleDeveloper(req, res) {
   res.render('index', { title, links, type, developerEntries });
 }
 
-module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper };
+const cannotBeEmpty = 'cannot be empty.';
+const cannotBeMoreThan50 = 'cannot be more than 50 characters.';
+
+const validateGenre = [
+  body('genre').trim()
+    .notEmpty().withMessage(`Genre ${cannotBeEmpty}`)
+    .isLength({ max: 50 }).withMessage(`Genre ${cannotBeMoreThan50}`)
+];
+
+const postNewGenre = [ validateGenre, async (req, res) => {
+    const errors = validationResult(req);
+    const title = 'genre';
+
+    if (!errors.isEmpty()) {
+      return res.status(400).render('form', { title, links, errors: errors.array() });
+    }
+
+    await dbPost.insertGenre(req.body.genre);
+
+    res.redirect('/');
+  }
+];
+
+const validateDeveloper = [
+  body('developer').trim()
+    .notEmpty().withMessage(`Developer ${cannotBeEmpty}`)
+    .isLength({ max: 50 }).withMessage(`Developer ${cannotBeMoreThan50}`)
+];
+
+const postNewDeveloper = [ validateDeveloper, async (req, res) => {
+    const errors = validationResult(req);
+    const title = 'developer';
+
+    if (!errors.isEmpty()) {
+      return res.status(400).render('form', { title, links, errors: errors.array() });
+    }
+
+    await dbPost.insertDeveloper(req.body.developer);
+
+    res.redirect('/');
+  }
+];
+
+module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper, postNewGenre, postNewDeveloper };

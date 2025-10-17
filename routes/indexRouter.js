@@ -9,4 +9,7 @@ indexRouter.get('/developers', indexController.getAllDevelopers);
 indexRouter.get('/genre/:genre_id', indexController.getSingleGenre);
 indexRouter.get('/developer/:developer_id', indexController.getSingleDeveloper);
 
+indexRouter.post('/add/genre', indexController.postNewGenre);
+indexRouter.post('/add/developer', indexController.postNewDeveloper);
+
 module.exports = indexRouter;
