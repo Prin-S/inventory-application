@@ -19,4 +19,32 @@ async function getAllDevelopers(req, res) {
   res.render('index', { title, links, developers });
 }
 
-module.exports = { getAllGames, getAllGenres, getAllDevelopers };
+async function getSingleGenre(req, res) {
+  const genreID = req.params.genre_id;
+  const genreEntries = await db.getSingleGenreFromDB(genreID);
+  
+  if (genreEntries.length == 0) {
+    throw new Error('Genre');
+  }
+
+  const type = 'Genre';
+  const title = genreEntries[0].genre;  
+  
+  res.render('index', { title, links, type, genreEntries });
+}
+
+async function getSingleDeveloper(req, res) {
+  const developerID = req.params.developer_id;
+  const developerEntries = await db.getSingleDeveloperFromDB(developerID);
+  
+  if (developerEntries.length == 0) {
+    throw new Error('Developer');
+  }
+
+  const type = 'Developer';
+  const title = developerEntries[0].developer;  
+  
+  res.render('index', { title, links, type, developerEntries });
+}
+
+module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper };

@@ -30,6 +30,20 @@
             <p><%= developer.developer %></p>
           </div>
         <% }); %>
+      <% } else if (type == 'Genre') { %>
+        <% genreEntries.forEach(entry => { %>
+          <div class="box">
+            <h3><%= entry.title %></h3>
+            <p><%= entry.developer %></p>
+          </div>
+        <% }); %>
+      <% } else if (type == 'Developer') { %>
+        <% developerEntries.forEach(entry => { %>
+          <div class="box">
+            <h3><%= entry.title %></h3>
+            <p><%= entry.genre %></p>
+          </div>
+        <% }); %>
       <% } %>
     </div>
     <%- include('footer') %>
