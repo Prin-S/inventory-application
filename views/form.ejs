@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css" />
-    <title>Add <%= title %></title>
+    <% if (type == 'add') { %>
+      <title>Add <%= title %></title>
+    <% } else { %>
+      <title>Update <%= selectedGenre.genre %></title>
+    <% } %>
   </head>
   <body>
     <%- include('navbar', { links }) %>
-    <h1>Add a new <%= title %></h1>
+    <% if (type == 'add') { %>
+      <h1>Add a new <%= title %></h1>
+    <% } else { %>
+      <h1>Update <%= selectedGenre.genre %></h1>
+    <% } %>
     <div class="container container-full">
       <div class="box">
         <% if (locals.errors) { %>
@@ -45,15 +53,27 @@
             </p>
           </form>
         <% } else { %>
-          <form method="POST" action="/add/<%= title %>">
-            <p>
-              <label for="<%= title %>"><%= title.charAt(0).toUpperCase() + title.slice(1) %>:</label>
-              <input id="<%= title %>" type="text" name="<%= title %>" />
-            </p>
-            <p>
-              <button class="button" type="submit">Submit</button>
-            </p>
-          </form>
+          <% if (type == 'add') { %>
+            <form method="POST" action="/add/<%= title %>">
+              <p>
+                <label for="<%= title %>"><%= title.charAt(0).toUpperCase() + title.slice(1) %>:</label>
+                <input id="<%= title %>" type="text" name="<%= title %>" />
+              </p>
+              <p>
+                <button class="button" type="submit">Submit</button>
+              </p>
+            </form>
+          <% } else { %>
+            <form method="POST" action="/update/<%= title %>/<%= selectedGenre.genre_id %>?_method=PUT">
+              <p>
+                <label for="<%= title %>"><%= title.charAt(0).toUpperCase() + title.slice(1) %>:</label>
+                <input id="<%= selectedGenre.genre_id %>" type="text" name="<%= title %>" value="<%= selectedGenre.genre %>" />
+              </p>
+              <p>
+                <button class="button" type="submit">Submit</button>
+              </p>
+            </form>
+          <% } %>
         <% } %>
       </div>
     </div>

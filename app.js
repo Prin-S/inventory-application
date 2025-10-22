@@ -1,6 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
+const methodOverride = require('method-override')
 const app = express();
 const newItemRouter = require('./routes/newItemRouter');
 const updateRouter = require('./routes/updateRouter');
@@ -15,6 +16,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // https://expressjs.com/en/api.html#express.urlencoded
 // So that "A new `body` object containing the parsed data is populated on the `request` object after the middleware (i.e. `req.body`)"
 app.use(express.urlencoded({ extended: true }));
+
+// https://expressjs.com/en/resources/middleware/method-override.html
+// See the "override using a query value" section.
+app.use(methodOverride('_method'));
 
 app.use('/add', newItemRouter);
 app.use('/update', updateRouter);
