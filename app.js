@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const newItemRouter = require('./routes/newItemRouter');
+const updateRouter = require('./routes/updateRouter');
 const indexRouter = require('./routes/indexRouter');
 const links = require('./links');
 
@@ -16,6 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/add', newItemRouter);
+app.use('/update', updateRouter);
 app.use('/', indexRouter);
 
 app.get('/{*splat}', (req, res) => {
