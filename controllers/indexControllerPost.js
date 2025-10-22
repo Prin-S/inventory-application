@@ -17,13 +17,13 @@ const validateGame = [
 ];
 
 const postNewGame = [ validateGame, async (req, res) => {
-  const errors = validationResult(req);
   const title = 'game';
   const genres = await db.getAllGenresFromDB();
   const developers = await db.getAllDevelopersFromDB();
+  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).render('form', { title, links, genres, developers, errors: errors.array() });
+    return res.status(400).render('form', { links, title, genres, developers, errors: errors.array() });
   }
 
   await dbPost.insertGame(req.body.game, req.body.genre, req.body.developer);
@@ -38,11 +38,11 @@ const validateGenre = [
 ];
 
 const postNewGenre = [ validateGenre, async (req, res) => {
-  const errors = validationResult(req);
   const title = 'genre';
+  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).render('form', { title, links, errors: errors.array() });
+    return res.status(400).render('form', { links, title, errors: errors.array() });
   }
 
   await dbPost.insertGenre(req.body.genre);
@@ -57,11 +57,11 @@ const validateDeveloper = [
 ];
 
 const postNewDeveloper = [ validateDeveloper, async (req, res) => {
-  const errors = validationResult(req);
   const title = 'developer';
+  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).render('form', { title, links, errors: errors.array() });
+    return res.status(400).render('form', { links, title, errors: errors.array() });
   }
 
   await dbPost.insertDeveloper(req.body.developer);

@@ -7,7 +7,7 @@ async function getAllGames(req, res) {
   const type = 'game';
   const empty = false;
 
-  res.render('index', { title, links, type, games, empty });
+  res.render('index', { links, title, games, type, empty });
 }
 
 async function getAllGenres(req, res) {
@@ -16,7 +16,7 @@ async function getAllGenres(req, res) {
   const type = 'genre';
   const empty = false;
 
-  res.render('index', { title, links, type, genres, empty });
+  res.render('index', { links, title, genres, type, empty });
 }
 
 async function getAllDevelopers(req, res) {
@@ -25,7 +25,7 @@ async function getAllDevelopers(req, res) {
   const type = 'developer';
   const empty = false;
 
-  res.render('index', { title, links, type, developers, empty });
+  res.render('index', { links, title, developers, type, empty });
 }
 
 async function getSingleGenre(req, res) {
@@ -47,7 +47,7 @@ async function getSingleGenre(req, res) {
     empty = false;
   }
   
-  res.render('index', { title, links, type, genreEntries, empty });
+  res.render('index', { links, title, genreEntries, type, empty });
 }
 
 async function getSingleDeveloper(req, res) {
@@ -69,7 +69,7 @@ async function getSingleDeveloper(req, res) {
     empty = false;
   }
   
-  res.render('index', { title, links, type, developerEntries, empty });
+  res.render('index', { links, title, developerEntries, type, empty });
 }
 
 module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper };
