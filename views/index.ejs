@@ -12,13 +12,11 @@
     <div class="container-nav">
       <% if (type == 'game') { %>
         <a href="/add">
-          <button class="button">Add <%= type %></button>
-        </a>
       <% } else { %>
         <a href="/add/<%= type %>">
+      <% } %>
           <button class="button">Add <%= type %></button>
         </a>
-      <% } %>
     </div>
     <% if (empty) { %>
       <div class="container container-full">
