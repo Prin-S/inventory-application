@@ -4,25 +4,28 @@ const links = require('../links');
 async function getAllGames(req, res) {
   const title = 'All Games';
   const games = await db.getAllGamesFromDB();
-  const type = 'none';
+  const type = 'game';
+  const empty = false;
 
-  res.render('index', { title, links, type, games });
+  res.render('index', { title, links, type, games, empty });
 }
 
 async function getAllGenres(req, res) {
   const title = 'All Genres';
   const genres = await db.getAllGenresFromDB();
-  const type = 'none';
+  const type = 'genre';
+  const empty = false;
 
-  res.render('index', { title, links, type, genres });
+  res.render('index', { title, links, type, genres, empty });
 }
 
 async function getAllDevelopers(req, res) {
   const title = 'All Developers';
   const developers = await db.getAllDevelopersFromDB();
-  const type = 'none';
+  const type = 'developer';
+  const empty = false;
 
-  res.render('index', { title, links, type, developers });
+  res.render('index', { title, links, type, developers, empty });
 }
 
 async function getSingleGenre(req, res) {
@@ -36,14 +39,15 @@ async function getSingleGenre(req, res) {
 
   const title = selectedGenre.genre;
   const genreEntries = await db.getSingleGenreFromDB(genreID);
-  
+  const type = 'genre';
+
   if (genreEntries.length == 0) {
-    type = 'empty genre';
+    empty = true;
   } else {
-    type = 'genre';
+    empty = false;
   }
   
-  res.render('index', { title, links, type, genreEntries });
+  res.render('index', { title, links, type, genreEntries, empty });
 }
 
 async function getSingleDeveloper(req, res) {
@@ -57,14 +61,15 @@ async function getSingleDeveloper(req, res) {
   
   const title = selectedDeveloper.developer;
   const developerEntries = await db.getSingleDeveloperFromDB(developerID);
-  
+  const type = 'developer';
+
   if (developerEntries.length == 0) {
-    type = 'empty developer';
+    empty = true;
   } else {
-    type = 'developer';
+    empty = false;
   }
   
-  res.render('index', { title, links, type, developerEntries });
+  res.render('index', { title, links, type, developerEntries, empty });
 }
 
 module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper };

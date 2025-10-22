@@ -9,9 +9,20 @@
   <body>
     <%- include('navbar', { links }) %>
     <h1><%= title %></h1>
-    <% if (type == 'empty genre' || type == 'empty developer') { %>
+    <div class="container-nav">
+      <% if (type == 'game') { %>
+        <a href="/add">
+          <button class="button">Add <%= type %></button>
+        </a>
+      <% } else { %>
+        <a href="/add/<%= type %>">
+          <button class="button">Add <%= type %></button>
+        </a>
+      <% } %>
+    </div>
+    <% if (empty) { %>
       <div class="container container-full">
-        <h3>No games found for this <%= type.slice(5); %></h3>
+        <h3>No games found for this <%= type %></h3>
         <a href="/">
           <button class="button">Home</button>
         </a>
