@@ -47,7 +47,7 @@ const postNewGenre = [ validateGenre, async (req, res) => {
 
   await dbPost.insertGenre(req.body.genre);
 
-  res.redirect('/');
+  res.redirect('/genres');
 }];
 
 const validateDeveloper = [
@@ -66,7 +66,7 @@ const postNewDeveloper = [ validateDeveloper, async (req, res) => {
 
   await dbPost.insertDeveloper(req.body.developer);
 
-  res.redirect('/');
+  res.redirect('/developers');
 }];
 
 module.exports = { postNewGame, postNewGenre, postNewDeveloper };
