@@ -3,11 +3,11 @@ const links = require('../links');
 
 async function addGame(req, res) {
   const title = 'game';
+  const type = 'add';
   const genres = await db.getAllGenresFromDB();
   const developers = await db.getAllDevelopersFromDB();
-  const type = 'add';
 
-  res.render('form', { links, title, genres, developers, type });
+  res.render('form', { links, title, type, genres, developers });
 }
 
 function addGenre(req, res) {

@@ -15,6 +15,7 @@ indexRouter.post('/add', indexControllerPost.postNewGame);
 indexRouter.post('/add/genre', indexControllerPost.postNewGenre);
 indexRouter.post('/add/developer', indexControllerPost.postNewDeveloper);
 
+indexRouter.put('/update/:id', indexControllerUpdate.updateGame);
 indexRouter.put('/update/genre/:genre_id', indexControllerUpdate.updateGenre);
 indexRouter.put('/update/developer/:developer_id', indexControllerUpdate.updateDeveloper);
 

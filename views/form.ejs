@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/styles.css" />
     <% if (type == 'add') { %>
       <title>Add <%= title %></title>
+    <% } else if (title == 'game' && type == 'update') { %>
+      <title>Update <%= selectedGame.title %></title>
     <% } else if (title == 'genre' && type == 'update') { %>
       <title>Update <%= selectedGenre.genre %></title>
     <% } else if (title == 'developer' && type == 'update') { %>
@@ -16,6 +18,8 @@
     <%- include('navbar', { links }) %>
     <% if (type == 'add') { %>
       <h1>Add a new <%= title %></h1>
+    <% } else if (title == 'game' && type == 'update') { %>
+      <h1>Update <%= selectedGame.title %></h1>
     <% } else if (title == 'genre' && type == 'update') { %>
       <h1>Update <%= selectedGenre.genre %></h1>
     <% } else if (title == 'developer' && type == 'update') { %>
@@ -29,33 +33,71 @@
           <% }); %>
         <% } %>
         <% if (title == 'game') { %>
-          <form method="POST" action="/add">
-            <p>
-              <label for="game">Game title:</label>
-              <input id="game" type="text" name="game" />
-            </p>
-            <p>
-              <label for="genre">Genre:</label>
-              <select id="genre" name="genre">
-                <option value="">-- Select a genre --</option>
-                <% genres.forEach(genre => { %>
-                  <option value="<%= genre.genre_id %>"><%= genre.genre %></option>  
-                <% }); %>
-              </select>
-            </p>
-            <p>
-              <label for="developer">Developer:</label>
-              <select id="developer" name="developer">
-                <option value="">-- Select a developer --</option>
-                <% developers.forEach(developer => { %>
-                  <option value="<%= developer.developer_id %>"><%= developer.developer %></option>  
-                <% }); %>
-              </select>
-            </p>
-            <p>
-              <button class="button" type="submit">Submit</button>
-            </p>
-          </form>
+          <% if (type == 'add') { %>
+            <form method="POST" action="/add">
+              <p>
+                <label for="game">Game title:</label>
+                <input id="game" type="text" name="game" />
+              </p>
+              <p>
+                <label for="genre">Genre:</label>
+                <select id="genre" name="genre">
+                  <option value="">-- Select a genre --</option>
+                  <% genres.forEach(genre => { %>
+                    <option value="<%= genre.genre_id %>"><%= genre.genre %></option>  
+                  <% }); %>
+                </select>
+              </p>
+              <p>
+                <label for="developer">Developer:</label>
+                <select id="developer" name="developer">
+                  <option value="">-- Select a developer --</option>
+                  <% developers.forEach(developer => { %>
+                    <option value="<%= developer.developer_id %>"><%= developer.developer %></option>  
+                  <% }); %>
+                </select>
+              </p>
+              <p>
+                <button class="button" type="submit">Submit</button>
+              </p>
+            </form>
+          <% } else if (type == 'update') { %>
+            <form method="POST" action="/update/<%= selectedGame.id %>?_method=PUT">
+              <p>
+                <label for="game">Game title:</label>
+                <input id="<%= selectedGame.id %>" type="text" name="game" value="<%= selectedGame.title %>"/>
+              </p>
+              <p>
+                <label for="genre">Genre:</label>
+                <select id="genre" name="genre">
+                  <option value="">-- Select a genre --</option>
+                  <% genres.forEach(genre => { %>
+                    <% if (genre.genre_id == selectedGame.genre_id) { %>
+                      <option value="<%= genre.genre_id %>" selected><%= genre.genre %></option>
+                    <% } else { %>
+                      <option value="<%= genre.genre_id %>"><%= genre.genre %></option>
+                    <% } %>
+                  <% }); %>
+                </select>
+              </p>
+              <p>
+                <label for="developer">Developer:</label>
+                <select id="developer" name="developer">
+                  <option value="">-- Select a developer --</option>
+                  <% developers.forEach(developer => { %>
+                    <% if (developer.developer_id == selectedGame.developer_id) { %>
+                      <option value="<%= developer.developer_id %>" selected><%= developer.developer %></option>
+                    <% } else { %>
+                      <option value="<%= developer.developer_id %>"><%= developer.developer %></option>
+                    <% } %>
+                  <% }); %>
+                </select>
+              </p>
+              <p>
+                <button class="button" type="submit">Submit</button>
+              </p>
+            </form>
+          <% } %>
         <% } else { %>
           <% if (type == 'add') { %>
             <form method="POST" action="/add/<%= title %>">

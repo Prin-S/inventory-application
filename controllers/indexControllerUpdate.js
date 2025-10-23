@@ -6,6 +6,34 @@ const { body, validationResult } = require('express-validator');
 const cannotBeEmpty = 'cannot be empty.';
 const cannotBeMoreThan50 = 'cannot be more than 50 characters.';
 
+const validateGame = [
+  body('game').trim()
+    .notEmpty().withMessage(`Game title ${cannotBeEmpty}`)
+    .isLength({ max: 50 }).withMessage(`Game title ${cannotBeMoreThan50}`),
+  body('genre')
+    .notEmpty().withMessage(`Genre ${cannotBeEmpty}`),
+  body('developer')
+    .notEmpty().withMessage(`Developer ${cannotBeEmpty}`)
+];
+
+const updateGame = [ validateGame, async (req, res) => {
+  const title = 'game';
+  const type = 'update';
+  const games = await db.getAllGamesFromDB();
+  const selectedGame = games.find(game => game.id == req.params.id);
+  const genres = await db.getAllGenresFromDB();
+  const developers = await db.getAllDevelopersFromDB();
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render('form', { links, title, type, selectedGame, genres, developers, errors: errors.array() });
+  }
+
+  await dbUpdate.updateGameInDB(req.params.id, req.body.game, req.body.genre, req.body.developer);
+
+  res.redirect('/');
+}];
+
 const validateGenre = [
   body('genre').trim()
     .notEmpty().withMessage(`Genre ${cannotBeEmpty}`)
@@ -50,4 +78,4 @@ const updateDeveloper = [ validateDeveloper, async (req, res) => {
   res.redirect('/developers');
 }];
 
-module.exports = { updateGenre, updateDeveloper };
+module.exports = { updateGame, updateGenre, updateDeveloper };
