@@ -6,16 +6,20 @@
     <link rel="stylesheet" href="/styles.css" />
     <% if (type == 'add') { %>
       <title>Add <%= title %></title>
-    <% } else { %>
+    <% } else if (title == 'genre' && type == 'update') { %>
       <title>Update <%= selectedGenre.genre %></title>
+    <% } else if (title == 'developer' && type == 'update') { %>
+      <title>Update <%= selectedDeveloper.developer %></title>
     <% } %>
   </head>
   <body>
     <%- include('navbar', { links }) %>
     <% if (type == 'add') { %>
       <h1>Add a new <%= title %></h1>
-    <% } else { %>
+    <% } else if (title == 'genre' && type == 'update') { %>
       <h1>Update <%= selectedGenre.genre %></h1>
+    <% } else if (title == 'developer' && type == 'update') { %>
+      <h1>Update <%= selectedDeveloper.developer %></h1>
     <% } %>
     <div class="container container-full">
       <div class="box">
@@ -63,11 +67,21 @@
                 <button class="button" type="submit">Submit</button>
               </p>
             </form>
-          <% } else { %>
+          <% } else if (title == 'genre' && type == 'update') { %>
             <form method="POST" action="/update/<%= title %>/<%= selectedGenre.genre_id %>?_method=PUT">
               <p>
                 <label for="<%= title %>"><%= title.charAt(0).toUpperCase() + title.slice(1) %>:</label>
                 <input id="<%= selectedGenre.genre_id %>" type="text" name="<%= title %>" value="<%= selectedGenre.genre %>" />
+              </p>
+              <p>
+                <button class="button" type="submit">Submit</button>
+              </p>
+            </form>
+          <% } else if (title == 'developer' && type == 'update') { %>
+            <form method="POST" action="/update/<%= title %>/<%= selectedDeveloper.developer_id %>?_method=PUT">
+              <p>
+                <label for="<%= title %>"><%= title.charAt(0).toUpperCase() + title.slice(1) %>:</label>
+                <input id="<%= selectedDeveloper.developer_id %>" type="text" name="<%= title %>" value="<%= selectedDeveloper.developer %>" />
               </p>
               <p>
                 <button class="button" type="submit">Submit</button>

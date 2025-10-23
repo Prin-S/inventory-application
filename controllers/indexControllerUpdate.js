@@ -28,4 +28,26 @@ const updateGenre = [ validateGenre, async (req, res) => {
   res.redirect('/genres');
 }];
 
-module.exports = { updateGenre };
+const validateDeveloper = [
+  body('developer').trim()
+    .notEmpty().withMessage(`Developer ${cannotBeEmpty}`)
+    .isLength({ max: 50 }).withMessage(`Developer ${cannotBeMoreThan50}`)
+];
+
+const updateDeveloper = [ validateDeveloper, async (req, res) => {
+  const title = 'developer';
+  const type = 'update';
+  const developers = await db.getAllDevelopersFromDB();
+  const selectedDeveloper = developers.find(developer => developer.developer_id == req.params.developer_id);
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render('form', { links, title, type, selectedDeveloper, errors: errors.array() });
+  }
+
+  await dbUpdate.updateDeveloperInDB(req.params.developer_id, req.body.developer);
+
+  res.redirect('/developers');
+}];
+
+module.exports = { updateGenre, updateDeveloper };

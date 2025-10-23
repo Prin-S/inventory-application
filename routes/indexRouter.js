@@ -16,5 +16,6 @@ indexRouter.post('/add/genre', indexControllerPost.postNewGenre);
 indexRouter.post('/add/developer', indexControllerPost.postNewDeveloper);
 
 indexRouter.put('/update/genre/:genre_id', indexControllerUpdate.updateGenre);
+indexRouter.put('/update/developer/:developer_id', indexControllerUpdate.updateDeveloper);
 
 module.exports = indexRouter;
