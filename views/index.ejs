@@ -33,27 +33,48 @@
               <h3><%= game.title %></h3>
               <p><a href="/genre/<%= game.genre_id %>"><%= game.genre %></a></p>
               <p><a href="/developer/<%= game.developer_id %>"><%= game.developer %></a></p>
-              <a href="/update/<%= game.id %>">
-                <button class="button">Update</button>
-              </a>
+              <div class="container-nav">
+                <a href="/update/<%= game.id %>">
+                  <button class="button">Update</button>
+                </a>
+                <form method="POST" action="/delete/<%= game.id %>?_method=DELETE">
+                  <p>
+                    <button class="button" type="submit">X</button>
+                  </p>
+                </form>
+              </div>
             </div>
           <% }); %>
         <% } else if (title == 'All Genres') { %>
           <% genres.forEach(genre => { %>
             <div class="box">
               <p><a href="/genre/<%= genre.genre_id %>"><%= genre.genre %></a></p>
-              <a href="/update/genre/<%= genre.genre_id %>">
-                <button class="button">Update</button>
-              </a>
+              <div class="container-nav">
+                <a href="/update/genre/<%= genre.genre_id %>">
+                  <button class="button">Update</button>
+                </a>
+                <form method="POST" action="/delete/genre/<%= genre.genre_id %>?_method=DELETE">
+                  <p>
+                    <button class="button" type="submit">X</button>
+                  </p>
+                </form>
+              </div>
             </div>
           <% }); %>
         <% } else if (title == 'All Developers') { %>
           <% developers.forEach(developer => { %>
             <div class="box">
               <p><a href="/developer/<%= developer.developer_id %>"><%= developer.developer %></a></p>
-              <a href="/update/developer/<%= developer.developer_id %>">
-                <button class="button">Update</button>
-              </a>
+              <div class="container-nav">
+                <a href="/update/developer/<%= developer.developer_id %>">
+                  <button class="button">Update</button>
+                </a>
+                <form method="POST" action="/delete/developer/<%= developer.developer_id %>?_method=DELETE">
+                  <p>
+                    <button class="button" type="submit">X</button>
+                  </p>
+                </form>
+              </div>
             </div>
           <% }); %>
         <% } else if (type == 'genre') { %>
