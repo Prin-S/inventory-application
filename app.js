@@ -5,6 +5,7 @@ const methodOverride = require('method-override')
 const app = express();
 const newItemRouter = require('./routes/newItemRouter');
 const updateRouter = require('./routes/updateRouter');
+const deleteRouter = require('./routes/deleteRouter');
 const indexRouter = require('./routes/indexRouter');
 const links = require('./links');
 
@@ -17,12 +18,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // So that "A new `body` object containing the parsed data is populated on the `request` object after the middleware (i.e. `req.body`)"
 app.use(express.urlencoded({ extended: true }));
 
-// https://expressjs.com/en/resources/middleware/method-override.html
-// See the "override using a query value" section.
+// https://expressjs.com/en/resources/middleware/method-override.html (see the "override using a query value" section)
+// So that other HTTP verbs like PUT or DELETE can be used in HTML forms.
 app.use(methodOverride('_method'));
 
 app.use('/add', newItemRouter);
 app.use('/update', updateRouter);
+app.use('/delete', deleteRouter);
 app.use('/', indexRouter);
 
 app.get('/{*splat}', (req, res) => {
