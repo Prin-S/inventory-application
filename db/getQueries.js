@@ -4,17 +4,18 @@ async function getAllGamesFromDB() {
   const rows = await pool.query(`SELECT *
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
-    JOIN developers ON games.developer_id = developers.developer_id`);
+    JOIN developers ON games.developer_id = developers.developer_id
+    ORDER BY id`);
   return rows.rows;
 }
 
 async function getAllGenresFromDB() {
-  const rows = await pool.query('SELECT * FROM genres');
+  const rows = await pool.query('SELECT * FROM genres ORDER BY genre_id');
   return rows.rows;
 }
 
 async function getAllDevelopersFromDB() {
-  const rows = await pool.query('SELECT * FROM developers');
+  const rows = await pool.query('SELECT * FROM developers ORDER BY developer_id');
   return rows.rows;
 }
 
