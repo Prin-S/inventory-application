@@ -27,7 +27,7 @@ const postNewGame = [ validateGame, async (req, res) => {
     return res.status(400).render('form', { links, title, type, genres, developers, errors: errors.array() });
   }
 
-  await dbPost.insertGame(req.body.game, req.body.genre, req.body.developer);
+  await dbPost.insertGameIntoDB(req.body.game, req.body.genre, req.body.developer);
 
   res.redirect('/');
 }];
@@ -47,7 +47,7 @@ const postNewGenre = [ validateGenre, async (req, res) => {
     return res.status(400).render('form', { links, title, type, errors: errors.array() });
   }
 
-  await dbPost.insertGenre(req.body.genre);
+  await dbPost.insertGenreIntoDB(req.body.genre);
 
   res.redirect('/genres');
 }];
@@ -67,7 +67,7 @@ const postNewDeveloper = [ validateDeveloper, async (req, res) => {
     return res.status(400).render('form', { links, title, type, errors: errors.array() });
   }
 
-  await dbPost.insertDeveloper(req.body.developer);
+  await dbPost.insertDeveloperIntoDB(req.body.developer);
 
   res.redirect('/developers');
 }];

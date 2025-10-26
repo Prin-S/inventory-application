@@ -19,21 +19,21 @@ async function getAllDevelopersFromDB() {
   return rows.rows;
 }
 
-async function getSingleGenreFromDB(id) {
+async function getSingleGenreFromDB(genre_id) {
   const rows = await pool.query(`SELECT games.id, games.title, genres.genre, developers.developer_id, developers.developer
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
     JOIN developers ON games.developer_id = developers.developer_id
-    WHERE genres.genre_id = ($1)`, [id]);
+    WHERE genres.genre_id = ($1)`, [genre_id]);
   return rows.rows;
 }
 
-async function getSingleDeveloperFromDB(id) {
+async function getSingleDeveloperFromDB(developer_id) {
   const rows = await pool.query(`SELECT games.id, games.title, genres.genre_id, genres.genre, developers.developer
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
     JOIN developers ON games.developer_id = developers.developer_id
-    WHERE developers.developer_id = ($1)`, [id]);
+    WHERE developers.developer_id = ($1)`, [developer_id]);
   return rows.rows;
 }
 
