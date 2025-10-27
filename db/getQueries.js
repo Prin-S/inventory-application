@@ -24,7 +24,8 @@ async function getSingleGenreFromDB(genre_id) {
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
     JOIN developers ON games.developer_id = developers.developer_id
-    WHERE genres.genre_id = ($1)`, [genre_id]);
+    WHERE genres.genre_id = ($1)
+    ORDER BY id`, [genre_id]);
   return rows.rows;
 }
 
@@ -33,7 +34,8 @@ async function getSingleDeveloperFromDB(developer_id) {
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
     JOIN developers ON games.developer_id = developers.developer_id
-    WHERE developers.developer_id = ($1)`, [developer_id]);
+    WHERE developers.developer_id = ($1)
+    ORDER BY id`, [developer_id]);
   return rows.rows;
 }
 
