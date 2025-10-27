@@ -15,9 +15,11 @@ const SQL = `
   CREATE TABLE IF NOT EXISTS games (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR (100),
-    genre_id INTEGER REFERENCES genres,
-    developer_id INTEGER REFERENCES developers
+    genre_id INTEGER DEFAULT 0 REFERENCES genres ON DELETE SET DEFAULT,
+    developer_id INTEGER DEFAULT 0 REFERENCES developers ON DELETE SET DEFAULT
   );
+
+  INSERT INTO genres (genre_id, genre) OVERRIDING SYSTEM VALUE VALUES (0, 'unknown');
 
   INSERT INTO genres (genre) VALUES
     ('First-person shooter'),
@@ -26,6 +28,8 @@ const SQL = `
     ('Third-person shooter'),
     ('Puzzle'),
     ('Turn-based strategy');
+
+  INSERT INTO developers (developer_id, developer) OVERRIDING SYSTEM VALUE VALUES (0, 'unknown');
 
   INSERT INTO developers (developer) VALUES
     ('id Software'),

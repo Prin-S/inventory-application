@@ -10,12 +10,12 @@ async function getAllGamesFromDB() {
 }
 
 async function getAllGenresFromDB() {
-  const rows = await pool.query('SELECT * FROM genres ORDER BY genre_id');
+  const rows = await pool.query('SELECT * FROM genres ORDER BY genre_id OFFSET 1'); // OFFSET 1 to hide the 'unknown' genre
   return rows.rows;
 }
 
 async function getAllDevelopersFromDB() {
-  const rows = await pool.query('SELECT * FROM developers ORDER BY developer_id');
+  const rows = await pool.query('SELECT * FROM developers ORDER BY developer_id OFFSET 1'); // OFFSET 1 to hide the 'unknown' developer
   return rows.rows;
 }
 
