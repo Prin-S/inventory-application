@@ -31,8 +31,16 @@
           <% games.forEach(game => { %>
             <div class="box">
               <h3><%= game.title %></h3>
-              <p><a href="/genre/<%= game.genre_id %>"><%= game.genre %></a></p>
-              <p><a href="/developer/<%= game.developer_id %>"><%= game.developer %></a></p>
+              <% if (game.genre_id == 0) { %>
+                <p><%= game.genre %></p>
+              <% } else { %>
+                <p><a href="/genre/<%= game.genre_id %>"><%= game.genre %></a></p>
+              <% } %>
+              <% if (game.developer_id == 0) { %>
+                <p><%= game.developer %></p>
+              <% } else { %>
+                <p><a href="/developer/<%= game.developer_id %>"><%= game.developer %></a></p>
+              <% } %>
               <div class="container-nav">
                 <a href="/update/<%= game.id %>">
                   <button class="button">Update</button>
