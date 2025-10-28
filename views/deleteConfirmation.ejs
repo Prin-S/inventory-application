@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css" />
+    <% if (title == 'game') { %>
+      <title>Delete <%= selectedGame.title %></title>
+    <% } else if (title == 'genre') { %>
+      <title>Delete <%= selectedGenre.genre %></title>
+    <% } else if (title == 'developer') { %>
+      <title>Delete <%= selectedDeveloper.developer %></title>
+    <% } %>
+  </head>
+  <body>
+    <%- include('navbar', { links }) %>
+    <% if (title == 'game') { %>
+      <h1>Delete <%= selectedGame.title %></h1>
+    <% } else if (title == 'genre') { %>
+      <h1>Delete <%= selectedGenre.genre %></h1>
+    <% } else if (title == 'developer') { %>
+      <h1>Delete <%= selectedDeveloper.developer %></h1>
+    <% } %>
+    <div class="container container-full">
+      <div class="box">
+        <% if (locals.errors) { %>
+          <% errors.forEach(error => { %>
+            <p><%= error.msg %></p>
+          <% }); %>
+        <% } %>
+        <% if (title == 'game') { %>
+          <form method="POST" action="/delete/<%= selectedGame.id %>?_method=DELETE">
+            <p>
+              <label for="password">Enter password to delete:</label>
+              <input id="password" type="password" name="password" />
+            </p>
+            <p>
+              <button class="button" type="submit">Delete</button>
+            </p>
+          </form>
+        <% } else if (title == 'genre') { %>
+          <form method="POST" action="/delete/genre/<%= selectedGenre.genre_id %>?_method=DELETE">
+            <p>
+              <label for="password">Enter password to delete:</label>
+              <input id="password" type="password" name="password" />
+            </p>
+            <p>
+              <button class="button" type="submit">Delete</button>
+            </p>
+          </form>
+        <% } else if (title == 'developer') { %>
+          <form method="POST" action="/delete/developer/<%= selectedDeveloper.developer_id %>?_method=DELETE">
+            <p>
+              <label for="password">Enter password to delete:</label>
+              <input id="password" type="password" name="password" />
+            </p>
+            <p>
+              <button class="button" type="submit">Delete</button>
+            </p>
+          </form>
+        <% } %>
+      </div>
+    </div>
+    <%- include('footer') %>
+  </body>
+</html>

@@ -19,7 +19,22 @@ async function getAllDevelopersFromDB() {
   return rows.rows;
 }
 
+async function getSingleGameFromDB(id) {
+  const rows = await pool.query(`SELECT * FROM games WHERE id = ($1)`, [id]);
+  return rows.rows;
+}
+
 async function getSingleGenreFromDB(genre_id) {
+  const rows = await pool.query(`SELECT * FROM genres WHERE genre_id = ($1)`, [genre_id]);
+  return rows.rows;
+}
+
+async function getSingleDeveloperFromDB(developer_id) {
+  const rows = await pool.query(`SELECT * FROM developers WHERE developer_id = ($1)`, [developer_id]);
+  return rows.rows;
+}
+
+async function getEntriesInSingleGenreFromDB(genre_id) {
   const rows = await pool.query(`SELECT games.id, games.title, genres.genre, developers.developer_id, developers.developer
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
@@ -29,7 +44,7 @@ async function getSingleGenreFromDB(genre_id) {
   return rows.rows;
 }
 
-async function getSingleDeveloperFromDB(developer_id) {
+async function getEntriesInSingleDeveloperFromDB(developer_id) {
   const rows = await pool.query(`SELECT games.id, games.title, genres.genre_id, genres.genre, developers.developer
     FROM games
     JOIN genres ON games.genre_id = genres.genre_id
@@ -39,4 +54,13 @@ async function getSingleDeveloperFromDB(developer_id) {
   return rows.rows;
 }
 
-module.exports = { getAllGamesFromDB, getAllGenresFromDB, getAllDevelopersFromDB, getSingleGenreFromDB, getSingleDeveloperFromDB };
+module.exports = {
+  getAllGamesFromDB,
+  getAllGenresFromDB,
+  getAllDevelopersFromDB,
+  getSingleGameFromDB,
+  getSingleGenreFromDB,
+  getSingleDeveloperFromDB,
+  getEntriesInSingleGenreFromDB,
+  getEntriesInSingleDeveloperFromDB
+};

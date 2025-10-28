@@ -38,7 +38,7 @@ async function getSingleGenre(req, res) {
   }
 
   const title = selectedGenre.genre;
-  const genreEntries = await db.getSingleGenreFromDB(genreID);
+  const genreEntries = await db.getEntriesInSingleGenreFromDB(genreID);
   const type = 'genre';
 
   if (genreEntries.length == 0) {
@@ -60,7 +60,7 @@ async function getSingleDeveloper(req, res) {
   }
   
   const title = selectedDeveloper.developer;
-  const developerEntries = await db.getSingleDeveloperFromDB(developerID);
+  const developerEntries = await db.getEntriesInSingleDeveloperFromDB(developerID);
   const type = 'developer';
 
   if (developerEntries.length == 0) {
