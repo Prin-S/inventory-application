@@ -30,26 +30,11 @@
         <% } %>
         <% if (title == 'game') { %>
           <form method="POST" action="/delete/<%= selectedGame.id %>?_method=DELETE">
-            <p>
-              <label for="password">Enter password to delete:</label>
-              <input id="password" type="password" name="password" />
-            </p>
-            <p>
-              <button class="button" type="submit">Delete</button>
-            </p>
-          </form>
         <% } else if (title == 'genre') { %>
           <form method="POST" action="/delete/genre/<%= selectedGenre.genre_id %>?_method=DELETE">
-            <p>
-              <label for="password">Enter password to delete:</label>
-              <input id="password" type="password" name="password" />
-            </p>
-            <p>
-              <button class="button" type="submit">Delete</button>
-            </p>
-          </form>
         <% } else if (title == 'developer') { %>
           <form method="POST" action="/delete/developer/<%= selectedDeveloper.developer_id %>?_method=DELETE">
+        <% } %>
             <p>
               <label for="password">Enter password to delete:</label>
               <input id="password" type="password" name="password" />
@@ -58,7 +43,6 @@
               <button class="button" type="submit">Delete</button>
             </p>
           </form>
-        <% } %>
       </div>
     </div>
     <%- include('footer') %>
