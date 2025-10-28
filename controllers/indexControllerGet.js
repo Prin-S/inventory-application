@@ -29,16 +29,14 @@ async function getAllDevelopers(req, res) {
 }
 
 async function getEntriesInSingleGenre(req, res) {
-  const genreID = req.params.genre_id;
-  const genres = await db.getAllGenresFromDB();
-  const selectedGenre = genres.find(genre => genre.genre_id == genreID);
+  const [ selectedGenre ] = await db.getSingleGenreFromDB(req.params.genre_id);
 
   if (!selectedGenre) {
     throw new Error('Genre');
   }
 
   const title = selectedGenre.genre;
-  const genreEntries = await db.getEntriesInSingleGenreFromDB(genreID);
+  const genreEntries = await db.getEntriesInSingleGenreFromDB(req.params.genre_id);
   const type = 'genre';
 
   if (genreEntries.length == 0) {
@@ -51,16 +49,14 @@ async function getEntriesInSingleGenre(req, res) {
 }
 
 async function getEntriesInSingleDeveloper(req, res) {
-  const developerID = req.params.developer_id;
-  const developers = await db.getAllDevelopersFromDB();
-  const selectedDeveloper = developers.find(developer => developer.developer_id == developerID);
+  const [ selectedDeveloper ] = await db.getSingleDeveloperFromDB(req.params.developer_id);
 
   if (!selectedDeveloper) {
     throw new Error('Developer');
   }
   
   const title = selectedDeveloper.developer;
-  const developerEntries = await db.getEntriesInSingleDeveloperFromDB(developerID);
+  const developerEntries = await db.getEntriesInSingleDeveloperFromDB(req.params.developer_id);
   const type = 'developer';
 
   if (developerEntries.length == 0) {
