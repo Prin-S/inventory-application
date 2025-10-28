@@ -29,7 +29,7 @@
       <div class="box">
         <% if (locals.errors) { %>
           <% errors.forEach(error => { %>
-            <p>- <%= error.msg %></p>
+            <p><%= error.msg %></p>
           <% }); %>
         <% } %>
         <% if (title == 'game') { %>

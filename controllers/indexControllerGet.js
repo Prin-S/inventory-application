@@ -28,7 +28,7 @@ async function getAllDevelopers(req, res) {
   res.render('index', { links, title, developers, type, empty });
 }
 
-async function getSingleGenre(req, res) {
+async function getEntriesInSingleGenre(req, res) {
   const genreID = req.params.genre_id;
   const genres = await db.getAllGenresFromDB();
   const selectedGenre = genres.find(genre => genre.genre_id == genreID);
@@ -50,7 +50,7 @@ async function getSingleGenre(req, res) {
   res.render('index', { links, title, genreEntries, type, empty });
 }
 
-async function getSingleDeveloper(req, res) {
+async function getEntriesInSingleDeveloper(req, res) {
   const developerID = req.params.developer_id;
   const developers = await db.getAllDevelopersFromDB();
   const selectedDeveloper = developers.find(developer => developer.developer_id == developerID);
@@ -72,4 +72,4 @@ async function getSingleDeveloper(req, res) {
   res.render('index', { links, title, developerEntries, type, empty });
 }
 
-module.exports = { getAllGames, getAllGenres, getAllDevelopers, getSingleGenre, getSingleDeveloper };
+module.exports = { getAllGames, getAllGenres, getAllDevelopers, getEntriesInSingleGenre, getEntriesInSingleDeveloper };

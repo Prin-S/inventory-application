@@ -8,8 +8,8 @@ indexRouter.get('/', indexControllerGet.getAllGames);
 indexRouter.get('/genres', indexControllerGet.getAllGenres);
 indexRouter.get('/developers', indexControllerGet.getAllDevelopers);
 
-indexRouter.get('/genre/:genre_id', indexControllerGet.getSingleGenre);
-indexRouter.get('/developer/:developer_id', indexControllerGet.getSingleDeveloper);
+indexRouter.get('/genre/:genre_id', indexControllerGet.getEntriesInSingleGenre);
+indexRouter.get('/developer/:developer_id', indexControllerGet.getEntriesInSingleDeveloper);
 
 indexRouter.post('/add', indexControllerPost.postNewGame);
 indexRouter.post('/add/genre', indexControllerPost.postNewGenre);
