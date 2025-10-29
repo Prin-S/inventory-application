@@ -2,7 +2,8 @@ require('dotenv').config();
 const db = require('../db/getQueries');
 const dbDelete = require('../db/deleteQueries');
 const links = require('../links');
-const { body, validationResult } = require('express-validator');
+const validators = require('../validators');
+const { validationResult } = require('express-validator');
 
 async function confirmDeleteGame(req, res) {
   const title = 'game';
@@ -25,12 +26,7 @@ async function confirmDeleteDeveloper(req, res) {
   res.render('deleteConfirmation', { links, title, selectedDeveloper });
 }
 
-const validatePassword = [
-  body('password').trim()
-    .equals(process.env.DELETE_PASSWORD).withMessage(`Incorrect password`)
-];
-
-const deleteGame = [ validatePassword, async (req, res) => {
+const deleteGame = [ validators.validatePassword, async (req, res) => {
   const title = 'game';
   const [ selectedGame ] = await db.getSingleGameFromDB(req.params.id);
   const errors = validationResult(req);
@@ -44,7 +40,7 @@ const deleteGame = [ validatePassword, async (req, res) => {
   res.redirect('/');
 }];
 
-const deleteGenre = [ validatePassword, async (req, res) => {
+const deleteGenre = [ validators.validatePassword, async (req, res) => {
   const title = 'genre';
   const [ selectedGenre ] = await db.getSingleGenreFromDB(req.params.genre_id);
   const errors = validationResult(req);
@@ -58,7 +54,7 @@ const deleteGenre = [ validatePassword, async (req, res) => {
   res.redirect('/genres');
 }];
 
-const deleteDeveloper = [ validatePassword, async (req, res) => {
+const deleteDeveloper = [ validators.validatePassword, async (req, res) => {
   const title = 'developer';
   const [ selectedDeveloper ] = await db.getSingleDeveloperFromDB(req.params.developer_id);
   const errors = validationResult(req);
